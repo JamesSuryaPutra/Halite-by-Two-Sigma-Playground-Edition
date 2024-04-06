@@ -35,7 +35,7 @@ Summary:
 - The game lasts a maximum of 400 turns.
 
 Game setup:
-- At the start of the game, each player is assigned a random color and mirrored location on the game board. Each player starts with 1 ship and 5000 halite.
+- At the start of the game, each player is assigned a random color and mirrored location on the game board. Each player starts with 1 ship and 5,000 halite.
 - The game board is 21x21 cells large and wraps around on both the north/south and east/west border. The southwest (bottom-left) corner of the board is designated (0,0) and the northeast (top-right) corner of the board is designated (20,20). The starting player positions are at (5,10) and (15,10). In the game code positions are given as serialized list where each cell is an integer calculated by the formula: [position = row * 21 + column].
 - The map is covered with a random distribution of halite. This distribution is symmetric both vertically and horizontally. Each cell has no more than 500 halite (the maximum amount a cell can have). In total the game board starts with 24,000 halite on it. In the visualizer the size of the halite icon is proportional to the amount of halite on that square.
 
