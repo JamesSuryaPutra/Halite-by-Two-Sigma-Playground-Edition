@@ -120,3 +120,27 @@ After both players have submitted their actions for the turn, the system will au
 When the game ends players are ranked based on their final collected halite. Ships, shipyards and undeposited halite are all worth nothing at the end of the game. Players are ranked in order of how much total halite they ended the game with. Players tied for total halite collected also tie in the game rankings. Eliminated players score 0 for total halite collected (regardless of how much halite they had when they were eliminated). Finally all bots that had errors are tied last in the rankings.
 
 The final rankings feed into the evaluation system that then modifies each player’s Skill Rating. Check out the evaluation tab for more details.
+
+# Basic strategies
+The most straightforward way to get started with Halite is to write a bot that can convert your starting ship into a shipyard, spawn a new ship, and then travel out to collect nearby halite and return it. From there the next step is to control a group of ships (and prevent them colliding into each other).
+
+After you get the basics down you should think about what other creative ideas you want to program. Some ideas to get you started:
+- An aggressive bot that steals from your opponent or tries to eliminate them from the game.
+- Defensive strategies to hold off enemy attacks.
+- Efficiently controlling the board with shipyards.
+- Protect high yield halite patches near your shipyard from enemies and mine them efficiently to maximize halite regeneration over the course of the game.
+
+A more advanced alternative to programming strategies directly is to approach the problem using machine learning. In Halite III the best machine learning bot in the competition ranked #11 in the competition; can we get even better results in Halite IV?
+
+# Evaluation
+Each day your team is able to submit up to 5 agents (bots) to the competition. Each submission will play episodes (games) against other bots on the ladder that have a similar skill rating. Over time skill ratings will go up with wins or down with losses. Every bot submitted will continue to play games until the end of the competition. On the leaderboard only your best scoring bot will be shown, but you can track the progress of all of your submissions on your Submissions page.
+
+Each Submission has an estimated Skill Rating which is modeled by a Gaussian N(μ,σ2) where μ is the estimated skill and σ represents our uncertainty of that estimate which will decrease over time.
+
+When you upload a Submission, we first play a Validation Episode where that Submission plays against copies of itself to make sure it works properly. If the Episode fails, the Submission is marked as Error. Otherwise, we initialize the Submission with μ0=600 and it joins the pool of All Submissions for ongoing evaluation.
+
+We repeatedly run Episodes from the pool of All Submissions, and try to pick Submissions with similar ratings for fair matches. We aim to run ~8 Episodes a day per Submission, with an additional slight rate increase for the newest-submitted Episodes to give you feedback faster.
+
+After an Episode finishes, we'll update the Rating estimate for all Submissions in that Episode. If one Submission won, we'll increase its μ and decrease its opponent's μ -- if the result was a draw, then we'll move the two μ values closer towards their mean. The updates will have magnitude relative to the deviation from the expected result based on the previous μ values, and also relative to each Submission's uncertainty σ. We also reduce the σ terms relative to the amount of information gained by the result. The score by which your bot wins or loses an Episode does not affect the skill rating updates.
+
+At the submission deadline, additional submissions will be locked. One additional week will be allotted to continue to run games. At the conclusion of this week, the leaderboard is final.
