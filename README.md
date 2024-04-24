@@ -1,5 +1,6 @@
 # Halite by Two Sigma: Playground Edition
 
+# Description
 Note:
 This simulation is a playground competition extending the fourth season of Halite for participation. We have modified the rules to serve as a two-player game instead of four-player game. No points or medals will be awarded for this competition.
 
