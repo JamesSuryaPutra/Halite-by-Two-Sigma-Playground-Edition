@@ -1,4 +1,5 @@
 # Halite by Two Sigma: Playground Edition
+![header](https://github.com/JamesSuryaPutra/Halite-by-Two-Sigma-Playground-Edition/assets/155945814/efdd1b72-4230-4733-83ac-16e52462acf0)
 
 # Description
 Note:
@@ -18,10 +19,10 @@ So dust off your halite meters and fasten your seatbelts. The fourth season of H
 Note:
 The environment rules for the playground version of Halite IV are the same as the featured version, except the playground environment is for two players instead of four, and the turn timeout has been reduced to 3 seconds from 6 seconds.
 
-Rules:
+## Rules
 In this game, you control a small armada of spaceships, mining the rare mineral “halite” from the depths of space and teleporting it back to your home world. But it turns out you aren’t the only civilization with this goal; in each game 2 opponents will compete to collect the most halite from the board. Whoever collects the most halite by the end of 400 turns, or eliminates all of their opponents from the board before that, will be the winner!
 
-Summary:
+## Summary
 - The player with the most halite at the end of the game wins.
 - You start the game with 1 ship and 5,000 halite.
 - Converting a ship to a shipyard costs 500 halite.
@@ -35,15 +36,15 @@ Summary:
 - Halite in each cell regenerates by 2% per turn, up to a maximum of 500 halite.
 - The game lasts a maximum of 400 turns.
 
-Game setup:
+## Game setup
 - At the start of the game, each player is assigned a random color and mirrored location on the game board. Each player starts with 1 ship and 5,000 halite.
 - The game board is 21x21 cells large and wraps around on both the north/south and east/west border. The southwest (bottom-left) corner of the board is designated (0,0) and the northeast (top-right) corner of the board is designated (20,20). The starting player positions are at (5,10) and (15,10). In the game code positions are given as serialized list where each cell is an integer calculated by the formula: [position = row * 21 + column].
 - The map is covered with a random distribution of halite. This distribution is symmetric both vertically and horizontally. Each cell has no more than 500 halite (the maximum amount a cell can have). In total the game board starts with 24,000 halite on it. In the visualizer the size of the halite icon is proportional to the amount of halite on that square.
 
-Strategy tip:
+## Strategy tip
 You will notice that players do not start with a shipyard, this means the first decision a player needs to make is where to create their first one. Many players will want to convert their starting ship to a shipyard on the first turn so they can create more ships ASAP.
 
-Turn order:
+## Turn order
 - Each game of Halite lasts for 400 turns or until all but one player has been eliminated. Each turn each agent will be given a copy of the board state (the “observation”) with complete information about every aspect of the game (including how much halite each player has, the position of all ships (and how much halite they have one them) and how much halite is on every cell of the board. Each agent will then need to return a list of actions for their ships and shipyards to take within a set amount of time.
 - If your agent does not return actions in time or encounters and error, it will be marked as errored and will immediately have all of its ships and shipyards removed from the game. This will place the player last in final score order (behind even players who had been previously eliminated).
 - Each turn each ship can make one of the following actions:
@@ -82,7 +83,7 @@ Turn order:
     - Cost: 0 halite
     - If no order is submitted for a shipyard it will do nothing for the turn.
 
-# Turn resolution
+## Turn resolution
 After both players have submitted their actions for the turn, the system will automatically resolve the turn and update the board state. Both player turns are resolved simultaneously across the following phases:
 - Spawning
   All shipyards that ordered a spawn action are resolved with new ships being added to the board on top of the shipyards that spawned them. At this phase multiple ships/shipyards can 
@@ -116,7 +117,7 @@ After both players have submitted their actions for the turn, the system will au
   shipyards (and thus cannot spawn any more ships). At the end of each turn the game also checks if either player has been eliminated or if the game has reached turn 400. If either of 
   those is true instead of starting a new turn the game moves to the game end step.
 
-# Game end
+## Game end
 When the game ends players are ranked based on their final collected halite. Ships, shipyards and undeposited halite are all worth nothing at the end of the game. Players are ranked in order of how much total halite they ended the game with. Players tied for total halite collected also tie in the game rankings. Eliminated players score 0 for total halite collected (regardless of how much halite they had when they were eliminated). Finally all bots that had errors are tied last in the rankings.
 
 The final rankings feed into the evaluation system that then modifies each player’s Skill Rating. Check out the evaluation tab for more details.
